@@ -1,0 +1,127 @@
+//How do I make text clickable?
+//GestureDetector
+
+
+class TextPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: GestureDetector(
+        onTap: () {
+          print('tapped');
+        },
+        child: Text(
+          'Hello',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 40,
+              fontFamily: 'Roboto',
+              color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+//####################################*******************************#####################################################
+//How do I add variables in my text?
+//SelectableText
+class _MyHomePageState extends State<MyHomePage> {
+  String playerName = "Serena"; // <- defined variable
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: SelectableText(
+          "It is ${playerName}'s turn to serve.", // <- variable wrapped in dollar sign and curly braces
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 40,
+              fontFamily: 'Roboto',
+              color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+//####################################*******************************#####################################################
+
+//How do I style different parts of my Text?
+//Text.rich
+class _MyHomePageState extends State<MyHomePage> {
+  String playerName = "Serena";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Text.rich(
+          TextSpan(text: "It is ", children: <TextSpan>[
+            TextSpan(
+                text: "$playerName's ",
+                style: TextStyle(
+                  color: Colors.redAccent, // <- override the color
+                  fontSize: 100, // <- override the font size
+                  fontWeight: FontWeight.bold,  // <- override the font weight
+                )),
+            TextSpan(text: "turn to serve.")
+          ]),
+          style: TextStyle(
+              fontWeight: FontWeight.w100,
+              fontSize: 30,
+              fontFamily: 'Roboto',
+              color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+//####################################*******************************####################################################
+//How do I make my text vertical?
+class _MyHomePageState extends State<MyHomePage> {
+  String myText = "0123456789";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          direction: Axis.vertical,  //stack individual text widgets on top of each other
+          children: _arrayOfText(),
+        ),
+      ),
+    );
+  }
+
+  List<Text> _arrayOfText() { // split our text into individual text widgets
+    return myText
+        .split("")
+        .map((letter) => Text(
+              letter,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 40,
+                  color: Colors.white),
+            ))
+        .toList();
+  }
+}
+
+//####################################*******************************####################################################
